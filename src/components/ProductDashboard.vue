@@ -159,11 +159,13 @@ const viewDetails = (product: Product) => {
   )
 }
 
-const handleImageError = (event: ImageErrorEvent, product: Product): void => {
-  console.warn(`Failed to load image for product: ${product.name}`)
-  event.target.src = DEFAULT_IMAGE
-  event.target.classList.add('error-image')
-  event.target.onerror = null
+const handleImageError = (event: Event, product: Product): void => {
+  if (event.target instanceof HTMLImageElement) {
+    console.warn(`Failed to load image for product: ${product.name}`)
+    event.target.src = DEFAULT_IMAGE
+    event.target.classList.add('error-image')
+    event.target.onerror = null
+  }
 }
 
 onMounted(async () => {
